@@ -8,6 +8,10 @@
       <i class="fas fa-bars" />
     </div>
     <div class="navigator__action">
+      <atom-button
+        primary
+        outline
+      />
     </div>
   </nav>
 </template>

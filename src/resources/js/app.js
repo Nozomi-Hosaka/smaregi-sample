@@ -4,7 +4,7 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-import Auth from "./src/Auth/Auth";
+// import Auth from './src/Auth/Auth';
 
 require('./bootstrap');
 import '@fortawesome/fontawesome-free/css/all.css';
@@ -24,6 +24,7 @@ import store from './plugins/store';
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+// eslint-disable-next-line no-undef
 Vue.component('app', require('./App.vue').default);
 
 /**
@@ -36,39 +37,39 @@ Vue.component('app', require('./App.vue').default);
  * Vue init auth
  */
 const auth = async () => {
-    // const auth = new Auth();
-    // const user = await auth.user();
-    // if (user) {
-    //     await store.dispatch('auth/setUser', user);
-    // }
+  // const auth = new Auth();
+  // const user = await auth.user();
+  // if (user) {
+  //     await store.dispatch('auth/setUser', user);
+  // }
 };
 
 /**
  * Vue router's Auth guard
  */
 router.beforeEach((to, from, next) => {
-    const isPublic = to.matched.some((record) => {
-        return record.meta.public;
-    });
-    if (isPublic) {
-        next();
-        return;
-    }
-    if (!store.getters['auth/logged_in']) {
-        next({name: 'login'});
-        return;
-    }
+  const isPublic = to.matched.some((record) => {
+    return record.meta.public;
+  });
+  if (isPublic) {
     next();
+    return;
+  }
+  if (!store.getters['auth/logged_in']) {
+    next({name: 'login'});
+    return;
+  }
+  next();
 });
 
 /**
  * Vue load afterAuth check.
  */
 auth().then(() => {
-    // eslint-disable-next-line no-unused-vars,no-undef
-    const app = new Vue({
-        el: '#app',
-        router,
-        store
-    });
+  // eslint-disable-next-line no-unused-vars,no-undef
+  const app = new Vue({
+    el: '#app',
+    router,
+    store
+  });
 });

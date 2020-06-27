@@ -11,6 +11,12 @@
       <nav-drawer-item @click="toTop">
         TOP
       </nav-drawer-item>
+      <nav-drawer-item @click="toTerm">
+        利用規約
+      </nav-drawer-item>
+      <nav-drawer-item @click="toPrivacyPolicy">
+        プライバシーポリシー
+      </nav-drawer-item>
     </nav-drawer>
     <transition mode="out-in">
       <div class="container mt-3">
@@ -38,6 +44,14 @@ export default {
       this.drawer = false;
       this.$router.push({name: 'top'}).catch(() => {});
     },
+    toTerm() {
+      this.drawer = false;
+      this.$router.push({name: 'term'}).catch(() => {});
+    },
+    toPrivacyPolicy() {
+      this.drawer = false;
+      this.$router.push({name: 'privacy_policy'}).catch(() => {});
+    }
   }
 };
 </script>
