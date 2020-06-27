@@ -1,0 +1,11 @@
+.list-line {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid $gray-3;
+  &:first-child {
+    padding: 0 0 0.5rem 0 ;
+  }
+  &:last-child {
+    border-bottom: none;
+    padding: 0.5rem 0 0 0;
+  }
+}

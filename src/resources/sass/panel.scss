@@ -1,0 +1,29 @@
+.panel {
+  border: 1px solid $gray-1;
+  box-shadow: 0 2px 5px $gray-1;
+  background-color: white;
+
+  &__header {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid $gray-3;
+    vertical-align: middle;
+
+    &__action {
+
+    }
+  }
+
+  &__body {
+    padding: 0.5rem 0;
+  }
+
+  &__footer {
+    padding: 0.5rem 0;
+    border-top: 1px solid $gray-3;
+
+    &__action {
+
+    }
+  }
+}
+

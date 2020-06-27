@@ -1,0 +1,62 @@
+@mixin button-color($color, $text-color, $bg-color, $b-color) {
+  border: 1px solid $color;
+  background-color: $color;
+  filter: drop-shadow(0.8px 0.8px 0.8px $color);
+  color: $text-color;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    border: 1px solid $color;
+    background-color: white;
+    color: $color;
+    transition: 0.3s;
+    opacity: 0.8;
+  }
+  &__outline {
+    border: 1px solid $color;
+    background-color: white;
+    color: $color;
+    filter: none;
+
+    &:hover {
+      border: 1px solid $color;
+      background-color: $bg-color;
+      color: $color;
+      opacity: 1;
+    }
+  }
+}
+
+.button {
+  padding: 0.1rem 1rem;
+  outline: none;
+
+  &__default {
+    @include button-color($gray-5, $gray-1, $gray-1, white);
+  }
+
+  &__primary {
+    @include button-color($blue, white, $light-blue, white);
+  }
+
+  &__warning {
+    @include button-color($orange, white, $light-orange, white);
+  }
+
+  &__danger {
+    @include button-color($red, white, $light-red, white);
+  }
+
+  &__block {
+    width: 100%;
+  }
+
+  &__large {
+    padding: 0.5rem 1.5rem;
+  }
+}
+
+.button-group {
+  display: inline-flex;
+}

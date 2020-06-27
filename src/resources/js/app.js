@@ -4,9 +4,14 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+import Auth from "./src/Auth/Auth";
+
 require('./bootstrap');
+import '@fortawesome/fontawesome-free/css/all.css';
 
 window.Vue = require('vue');
+import router from './plugins/router';
+import store from './plugins/store';
 
 /**
  * The following block of code may be used to automatically register your
@@ -19,7 +24,7 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('app', require('./App.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -27,6 +32,43 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
-  el: '#app',
+/**
+ * Vue init auth
+ */
+const auth = async () => {
+    // const auth = new Auth();
+    // const user = await auth.user();
+    // if (user) {
+    //     await store.dispatch('auth/setUser', user);
+    // }
+};
+
+/**
+ * Vue router's Auth guard
+ */
+router.beforeEach((to, from, next) => {
+    const isPublic = to.matched.some((record) => {
+        return record.meta.public;
+    });
+    if (isPublic) {
+        next();
+        return;
+    }
+    if (!store.getters['auth/logged_in']) {
+        next({name: 'login'});
+        return;
+    }
+    next();
+});
+
+/**
+ * Vue load afterAuth check.
+ */
+auth().then(() => {
+    // eslint-disable-next-line no-unused-vars,no-undef
+    const app = new Vue({
+        el: '#app',
+        router,
+        store
+    });
 });

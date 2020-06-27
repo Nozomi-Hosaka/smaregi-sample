@@ -1,8 +1,28 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+// @import url('https://fonts.googleapis.com/css?family=Nunito');
 
 // Variables
 @import 'variables';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+// This project css
+@import 'nav_drawer';
+@import 'navigator';
+@import 'button';
+@import 'input_text';
+@import 'panel';
+@import 'radio';
+@import 'checkbox';
+@import 'list';
+
+.text-center {
+    text-align: center;
+}
+.text-right {
+    text-align: right;
+}
+.text-left {
+    text-align: left;
+}
