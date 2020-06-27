@@ -27,3 +27,4 @@ rules:
   semi:
     - error
     - always
+  vue/no-v-html: off
