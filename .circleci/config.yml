@@ -90,7 +90,7 @@ jobs:
           command: ls -al ~/.ssh
       - run:
           name: SSH Login
-          command: ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${SAKURA_FTP_USER}@${SAKURA_FTP_HOST} 'cd www/mission && sh deployer.sh && exit'
+          command: ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${SAKURA_FTP_USER}@${SAKURA_FTP_HOST} 'cd www/smaregi && sh deployer.sh && exit'
       - run:
           name: End Message
           command: echo 'complete deploy.'

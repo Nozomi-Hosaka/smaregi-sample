@@ -1,5 +1,5 @@
 <?php
-define('APP_ROOT_DIR', 'www/mission/');
+define('APP_ROOT_DIR', 'www/smaregi/');
 
 echo "# FTP通信開始\n";
 
