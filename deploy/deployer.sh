@@ -8,7 +8,7 @@ cd src/
 
 php -v
 
-# php artisan passport:key
+php artisan passport:key
 
 # php artisan migrate --force
 
