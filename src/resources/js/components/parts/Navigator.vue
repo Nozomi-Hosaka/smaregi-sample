@@ -9,9 +9,20 @@
     </div>
     <div class="navigator__action">
       <atom-button
+        v-if="false"
         primary
         outline
       />
+      <a
+        href="https://github.com/Nozomi-Hosaka/smaregi-sample"
+        target="_blank"
+        style="text-decoration: none; color: black;"
+      >
+        <i
+          class="fab fa-github"
+          style="cursor: pointer; font-size: 1.5rem;"
+        />
+      </a>
     </div>
   </nav>
 </template>
