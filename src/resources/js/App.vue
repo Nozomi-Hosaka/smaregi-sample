@@ -11,6 +11,9 @@
       <nav-drawer-item @click="toTop">
         TOP
       </nav-drawer-item>
+      <nav-drawer-item @click="toTimecard">
+        タイムカード
+      </nav-drawer-item>
       <nav-drawer-item @click="toTerm">
         利用規約
       </nav-drawer-item>
@@ -43,6 +46,10 @@ export default {
     toTop() {
       this.drawer = false;
       this.$router.push({name: 'top'}).catch(() => {});
+    },
+    toTimecard() {
+      this.drawer = false;
+      this.$router.push({name: 'timecard'}).catch(() => {});
     },
     toTerm() {
       this.drawer = false;
