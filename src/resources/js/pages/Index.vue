@@ -32,7 +32,7 @@
       <list :lists="smaregiTokens">
         <template #default="list">
           <div class="m-3">
-            {{ list.content }}
+            <json-viewer v-model="list.content" />
           </div>
         </template>
       </list>
@@ -49,10 +49,11 @@ import AtomInputText from '../components/atoms/AtomInputText';
 import List from '../components/parts/List';
 import SaveSmaregiApiToken from '../src/SmaregiApiToken/UseCase/SaveSmaregiApiToken/SaveSmaregiApiToken';
 import SaveSmaregiApiTokenInput from '../src/SmaregiApiToken/UseCase/SaveSmaregiApiToken/SaveSmaregiApiTokenInput';
+import JsonViewer from '../components/components/JsonViewer';
 
 export default {
   name: 'Index',
-  components: {List, AtomInputText, Panel, AtomButton},
+  components: {JsonViewer, List, AtomInputText, Panel, AtomButton},
   data() {
     return {
       fetching: false,

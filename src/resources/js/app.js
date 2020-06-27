@@ -8,6 +8,7 @@
 
 require('./bootstrap');
 import '@fortawesome/fontawesome-free/css/all.css';
+import 'highlight.js/styles/androidstudio.css';
 
 window.Vue = require('vue');
 import router from './plugins/router';
