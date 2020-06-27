@@ -16,11 +16,12 @@ class Api {
 
   checkErrorByResponseStatus(response) {
     this._errors = [];
+    console.log();
     if (response.status >= 200 && response.status < 300) {
       return true;
     } else if (response.status === 422) {
-      response.data.errors.forEach((item) => {
-        this.errors = item;
+      Object.keys(response.data.errors).forEach((key) => {
+        this.errors = response.data.errors[key];
       });
       return false;
     } else {

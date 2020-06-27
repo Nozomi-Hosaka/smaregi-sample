@@ -10,9 +10,12 @@ class SmaregiApiToken extends Model
     use SoftDeletes;
 
     protected $table = 'smaregi_api_tokens';
+    protected $primaryKey = 'id';
+    public $incrementing = false;
     protected $fillable = [
         'id',
         'contract_id',
-        'token',
+        'token_type',
+        'access_token',
     ];
 }

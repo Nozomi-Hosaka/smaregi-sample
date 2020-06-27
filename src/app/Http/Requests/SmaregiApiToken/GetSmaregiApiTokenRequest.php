@@ -29,12 +29,4 @@ class GetSmaregiApiTokenRequest extends FormRequest implements GetSmaregiApiToke
             //
         ];
     }
-
-    /**
-     * @return string
-     */
-    public function contractId(): string
-    {
-        return $this->get('contract_id', '') ?? '';
-    }
 }

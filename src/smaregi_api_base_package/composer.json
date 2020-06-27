@@ -1,0 +1,23 @@
+{
+  "name": "smaregi/idp-api-client",
+  "description": "Smaregi ID Provider Client",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "require": {
+    "php": "^7.3",
+    "fig/http-message-util": "^1.1",
+    "psr/http-client": "^1.0",
+    "psr/http-factory": "^1.0",
+    "psr/http-message": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Smaregi\\SmaregiApiClient\\": "src/"
+    }
+  },
+  "suggest": {
+    "nyholm/psr7": "A fast PHP7 implementation of PSR-7/PSR-17",
+    "symfony/http-client": "Symfony HttpClient component implement PSR-18",
+    "php-http/curl-client": "Another PSR-18 HttpClient implementation"
+  }
+}

@@ -6,6 +6,7 @@ namespace Smaregi\SmaregiApiToken\Models\Collection;
 use InvalidArgumentException;
 use Smaregi\Foundation\Collection;
 use Smaregi\SmaregiApiToken\Models\Entity\SmaregiApiToken;
+use Smaregi\SmaregiApiToken\Models\ValueObject\ContractId;
 
 class SmaregiApiTokenCollection extends Collection
 {
@@ -40,7 +41,12 @@ class SmaregiApiTokenCollection extends Collection
     {
         $collection = [];
         foreach ($items as $item) {
-            $collection[] = new SmaregiApiToken($item['id'], $item['contract_id'], $item['token']);
+            $collection[] = new SmaregiApiToken(
+                (string) $item['id'],
+                new ContractId((string) $item['contract_id']),
+                (string) $item['token_type'],
+                (string) $item['access_token']
+            );
         }
         return new self($collection);
     }

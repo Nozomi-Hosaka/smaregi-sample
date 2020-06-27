@@ -6,6 +6,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Smaregi\SmaregiApiToken\Query\GetSmaregiApiToken\GetSmaregiApiToken;
 use Smaregi\SmaregiApiToken\Query\GetSmaregiApiToken\GetSmaregiApiTokenInterface;
+use Smaregi\SmaregiApiToken\UseCase\SaveSmaregiApiToken\SaveSmaregiApiToken;
+use Smaregi\SmaregiApiToken\UseCase\SaveSmaregiApiToken\SaveSmaregiApiTokenInterface;
 
 class UseCaseServiceProvider extends ServiceProvider
 {
@@ -17,6 +19,7 @@ class UseCaseServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(GetSmaregiApiTokenInterface::class, GetSmaregiApiToken::class);
+        $this->app->bind(SaveSmaregiApiTokenInterface::class, SaveSmaregiApiToken::class);
     }
 
     /**

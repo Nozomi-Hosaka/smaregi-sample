@@ -16,7 +16,7 @@
             <atom-button
               primary
               outline
-              @click="smaregiTokens.push('現在準備中です。')"
+              @click="saveSmaregiToken"
             >
               アプリトークンを取得
             </atom-button>
@@ -47,6 +47,8 @@ import GetSmaregiApiToken from '../src/SmaregiApiToken/UseCase/GetSmaregiApiToke
 import SmaregiApiTokenRepository from '../src/SmaregiApiToken/Repository/SmaregiApiTokenRepository';
 import AtomInputText from '../components/atoms/AtomInputText';
 import List from '../components/parts/List';
+import SaveSmaregiApiToken from '../src/SmaregiApiToken/UseCase/SaveSmaregiApiToken/SaveSmaregiApiToken';
+import SaveSmaregiApiTokenInput from '../src/SmaregiApiToken/UseCase/SaveSmaregiApiToken/SaveSmaregiApiTokenInput';
 
 export default {
   name: 'Index',
@@ -54,7 +56,8 @@ export default {
   data() {
     return {
       fetching: false,
-      getSmaregiToken: new GetSmaregiApiToken(new SmaregiApiTokenRepository()),
+      getSmaregiTokenUseCase: new GetSmaregiApiToken(new SmaregiApiTokenRepository()),
+      saveSmaregiTokenUseCase: new SaveSmaregiApiToken(new SmaregiApiTokenRepository()),
       contractId: '',
       smaregiTokens: [],
     };
@@ -65,7 +68,16 @@ export default {
   methods: {
     async fetchSmaregiToken() {
       try {
-        this.smaregiTokens = await this.getSmaregiToken.process();
+        this.smaregiTokens = await this.getSmaregiTokenUseCase.process();
+      } catch (e) {
+        this.smaregiTokens = e;
+      }
+    },
+    async saveSmaregiToken() {
+      try {
+        const input = new SaveSmaregiApiTokenInput(this.contractId);
+        const token = await this.saveSmaregiTokenUseCase.process(input);
+        this.smaregiTokens.push(token);
       } catch (e) {
         this.smaregiTokens = e;
       }

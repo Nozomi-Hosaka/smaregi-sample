@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\ReadModel;
+namespace App\Adapters\ReadModel;
 
 use Smaregi\SmaregiApiToken\Models\Collection\SmaregiApiTokenCollection;
 use Smaregi\SmaregiApiToken\Models\Entity\SmaregiApiToken;
@@ -13,16 +13,16 @@ class SmaregiApiTokenReadModel implements SmaregiApiTokenReadModelInterface
     /**
      * @var \App\Models\SmaregiApiToken
      */
-    private $smaregiApiToken;
+    private $smaregiApiTokenModel;
 
     /**
      * SmaregiApiTokenReadModel constructor.
      *
-     * @param \App\Models\SmaregiApiToken $smaregiApiToken
+     * @param \App\Models\SmaregiApiToken $smaregiApiTokenModel
      */
-    public function __construct(\App\Models\SmaregiApiToken $smaregiApiToken)
+    public function __construct(\App\Models\SmaregiApiToken $smaregiApiTokenModel)
     {
-        $this->smaregiApiToken = $smaregiApiToken;
+        $this->smaregiApiTokenModel = $smaregiApiTokenModel;
     }
 
     /**
@@ -30,7 +30,7 @@ class SmaregiApiTokenReadModel implements SmaregiApiTokenReadModelInterface
      */
     public function findAll(): SmaregiApiTokenCollection
     {
-        $smaregiApiTokens = $this->smaregiApiToken->newQuery()->get();
+        $smaregiApiTokens = $this->smaregiApiTokenModel->newQuery()->get();
         return SmaregiApiTokenCollection::fromArray($smaregiApiTokens->toArray());
     }
 
@@ -41,7 +41,7 @@ class SmaregiApiTokenReadModel implements SmaregiApiTokenReadModelInterface
     public function findByContractId(ContractId $contractId): ?SmaregiApiToken
     {
         /** @var \App\Models\SmaregiApiToken $smaregiApiToken */
-        $smaregiApiToken = $this->smaregiApiToken->newQuery()
+        $smaregiApiToken = $this->smaregiApiTokenModel->newQuery()
             ->where('contract_id', (string) $contractId)
             ->first();
         if ($smaregiApiToken === null) {
@@ -59,7 +59,8 @@ class SmaregiApiTokenReadModel implements SmaregiApiTokenReadModelInterface
         return new SmaregiApiToken(
             $smaregiApiToken->getAttribute('id'),
             $smaregiApiToken->getAttribute('contract_id'),
-            $smaregiApiToken->getAttribute('token')
+            $smaregiApiToken->getAttribute('token_type'),
+            $smaregiApiToken->getAttribute('access_token')
         );
     }
 }

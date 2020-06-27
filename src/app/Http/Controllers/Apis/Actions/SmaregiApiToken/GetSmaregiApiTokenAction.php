@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Apis\Actions\SmaregiApiToken;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SmaregiApiToken\GetSmaregiApiTokenRequest;
-use App\Http\Responses\GetSmaregiApiTokenResponse;
+use App\Http\Responses\SmaregiApiToken\GetSmaregiApiTokenResponse;
 use Illuminate\Http\JsonResponse;
 use Smaregi\Exceptions\SmaregiSpecificationException;
 use Smaregi\SmaregiApiToken\Query\GetSmaregiApiToken\GetSmaregiApiTokenInterface;

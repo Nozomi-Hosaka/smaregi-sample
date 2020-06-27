@@ -168,8 +168,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        App\Providers\ClientServiceProvider::class,
         App\Providers\RepositoryServiceProvider::class,
         App\Providers\UseCaseServiceProvider::class,
+        App\Providers\FactoryServiceProvider::class,
     ],
 
     /*

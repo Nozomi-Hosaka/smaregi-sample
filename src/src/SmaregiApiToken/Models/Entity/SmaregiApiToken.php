@@ -20,20 +20,27 @@ class SmaregiApiToken
     /**
      * @var string
      */
-    private $token;
+    private $tokenType;
+
+    /**
+     * @var string
+     */
+    private $accessToken;
 
     /**
      * SmaregiApiToken constructor.
      *
      * @param string $id
      * @param ContractId $contractId
-     * @param string $token
+     * @param string $tokenType
+     * @param string $accessToken
      */
-    public function __construct(string $id, ContractId $contractId, string $token)
+    public function __construct(string $id, ContractId $contractId, string $tokenType, string $accessToken)
     {
         $this->id = $id;
         $this->contractId = $contractId;
-        $this->token = $token;
+        $this->tokenType = $tokenType;
+        $this->accessToken = $accessToken;
     }
 
     /**
@@ -55,9 +62,33 @@ class SmaregiApiToken
     /**
      * @return string
      */
-    public function token(): string
+    public function tokenType(): string
     {
-        return (string) $this->token;
+        return (string) $this->tokenType;
+    }
+
+    /**
+     * @return string
+     */
+    public function accessToken(): string
+    {
+        return (string) $this->accessToken;
+    }
+
+    /**
+     * @param string $tokenType
+     */
+    public function setTokenType(string $tokenType): void
+    {
+        $this->tokenType = $tokenType;
+    }
+
+    /**
+     * @param string $accessToken
+     */
+    public function setAccessToken(string $accessToken): void
+    {
+        $this->accessToken = $accessToken;
     }
 
     /**
@@ -68,7 +99,8 @@ class SmaregiApiToken
         return [
             'id' => (string) $this->id(),
             'contract_id' => (string) $this->contractId(),
-            'token' => (string) $this->token(),
+            'token_type' => (string) $this->tokenType(),
+            'access_token' => (string) $this->accessToken(),
         ];
     }
 }

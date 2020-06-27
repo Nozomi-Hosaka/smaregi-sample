@@ -11,6 +11,7 @@
 |
 */
 
+use App\Http\Controllers\Apis\Actions\SmaregiApiToken\SaveSmaregiApiTokenAction;
 use App\Http\Controllers\Apis\Actions\SmaregiApiToken\GetSmaregiApiTokenAction;
 
 Route::get('/', function () {
@@ -22,6 +23,7 @@ Route::prefix('api')->group(static function () {
     Route::prefix('smaregi')->group(static function () {
         Route::prefix('token')->group(static function () {
             Route::get('/', GetSmaregiApiTokenAction::class);
+            Route::post('/', SaveSmaregiApiTokenAction::class);
         });
     });
 });

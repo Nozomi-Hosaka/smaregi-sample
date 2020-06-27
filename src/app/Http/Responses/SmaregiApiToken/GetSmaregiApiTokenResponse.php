@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Http\Responses;
+namespace App\Http\Responses\SmaregiApiToken;
 
 use Smaregi\SmaregiApiToken\Models\Collection\SmaregiApiTokenCollection;
 use Smaregi\SmaregiApiToken\Query\GetSmaregiApiToken\GetSmaregiApiTokenOutputPort;

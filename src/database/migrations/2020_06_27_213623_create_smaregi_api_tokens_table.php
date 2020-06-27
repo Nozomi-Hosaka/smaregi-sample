@@ -16,10 +16,11 @@ class CreateSmaregiApiTokensTable extends Migration
         Schema::create('smaregi_api_tokens', function (Blueprint $table) {
             $table->string('id');
             $table->string('contract_id')->comment('スマレジ契約ID');
-            $table->string('token')->comment('アプリアクセストークン');
+            $table->string('token_type')->comment('アプリアクセストークンタイプ');
+            $table->text('access_token')->comment('アプリアクセストークン');
             $table->timestamps();
             $table->softDeletes();
-            $table->unique(['contract_id', 'token']);
+            $table->unique(['contract_id']);
         });
     }
 
