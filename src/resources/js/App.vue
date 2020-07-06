@@ -14,6 +14,9 @@
       <nav-drawer-item @click="toWebhook">
         Webhook
       </nav-drawer-item>
+      <nav-drawer-item @click="toPos">
+        スマレジPOS
+      </nav-drawer-item>
       <nav-drawer-item @click="toTimecard">
         タイムカード
       </nav-drawer-item>
@@ -53,6 +56,10 @@ export default {
     toWebhook() {
       this.drawer = false;
       this.$router.push({name: 'webhook'}).catch(() => {});
+    },
+    toPos() {
+      this.drawer = false;
+      this.$router.push({name: 'pos'}).catch(() => {});
     },
     toTimecard() {
       this.drawer = false;
