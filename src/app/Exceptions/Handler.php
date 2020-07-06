@@ -5,7 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
-use Smaregi\SmaregiApiToken\Models\Repository\SmaregiApiTokenRepositoryInterface;
+use Smaregi\Exceptions\SmaregiSpecificationExceptionInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
@@ -52,7 +52,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        if ($exception instanceof SmaregiApiTokenRepositoryInterface) {
+        if ($exception instanceof SmaregiSpecificationExceptionInterface) {
             return response()->json([
                 'message' => $exception->getMessage(),
             ], $exception->getCode());
