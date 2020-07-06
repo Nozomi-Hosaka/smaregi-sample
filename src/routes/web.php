@@ -13,6 +13,7 @@
 
 use App\Http\Controllers\Apis\Actions\SmaregiApiToken\SaveSmaregiApiTokenAction;
 use App\Http\Controllers\Apis\Actions\SmaregiApiToken\GetSmaregiApiTokenAction;
+use App\Http\Controllers\Apis\Actions\Webhook\GetWebhookLogAction;
 
 Route::get('/', function () {
     return view('vue');
@@ -25,6 +26,9 @@ Route::prefix('api')->group(static function () {
             Route::get('/', GetSmaregiApiTokenAction::class);
             Route::post('/', SaveSmaregiApiTokenAction::class);
         });
+    });
+    Route::prefix('webhook')->group(static function () {
+        Route::get('/', GetWebhookLogAction::class);
     });
 });
 

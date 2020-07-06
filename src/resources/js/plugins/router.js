@@ -5,6 +5,7 @@ import test from '../routes/test';
 import top from '../routes/top';
 import auth from '../routes/auth';
 import timecard from '../routes/timecard';
+import webhook from '../routes/webhook';
 
 Vue.use(VueRouter);
 
@@ -13,6 +14,7 @@ routes = routes.concat(test.routes);
 routes = routes.concat(top.routes);
 routes = routes.concat(auth.routes);
 routes = routes.concat(timecard.routes);
+routes = routes.concat(webhook.routes);
 
 export default new VueRouter({
   mode: 'history',

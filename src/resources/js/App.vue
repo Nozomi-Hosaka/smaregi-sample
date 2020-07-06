@@ -11,6 +11,9 @@
       <nav-drawer-item @click="toTop">
         TOP
       </nav-drawer-item>
+      <nav-drawer-item @click="toWebhook">
+        Webhook
+      </nav-drawer-item>
       <nav-drawer-item @click="toTimecard">
         タイムカード
       </nav-drawer-item>
@@ -46,6 +49,10 @@ export default {
     toTop() {
       this.drawer = false;
       this.$router.push({name: 'top'}).catch(() => {});
+    },
+    toWebhook() {
+      this.drawer = false;
+      this.$router.push({name: 'webhook'}).catch(() => {});
     },
     toTimecard() {
       this.drawer = false;
