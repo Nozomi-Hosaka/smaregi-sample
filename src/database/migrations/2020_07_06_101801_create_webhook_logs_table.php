@@ -15,7 +15,8 @@ class CreateWebhookLogsTable extends Migration
     {
         Schema::create('webhook_logs', function (Blueprint $table) {
             $table->string('id');
-            $table->text('content');
+            $table->text('header');
+            $table->text('body');
             $table->timestamps();
             $table->primary('id');
         });

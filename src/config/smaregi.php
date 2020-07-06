@@ -9,5 +9,5 @@ return [
     'webhook' => [
         'key' => env('WEBHOOK_HEADER_KEY', ''),
         'value' => env('WEBHOOK_HEADER_VALUE', ''),
-    ]
+    ],
 ];
