@@ -11,26 +11,9 @@
 |
 */
 
-use App\Http\Controllers\Apis\Actions\SmaregiApiToken\SaveSmaregiApiTokenAction;
-use App\Http\Controllers\Apis\Actions\SmaregiApiToken\GetSmaregiApiTokenAction;
-use App\Http\Controllers\Apis\Actions\Webhook\GetWebhookLogAction;
-
 Route::get('/', function () {
     return view('vue');
 })->name('top');
-
-// TODO: ログイン基盤作成あとに移行
-Route::prefix('api')->group(static function () {
-    Route::prefix('smaregi')->group(static function () {
-        Route::prefix('token')->group(static function () {
-            Route::get('/', GetSmaregiApiTokenAction::class);
-            Route::post('/', SaveSmaregiApiTokenAction::class);
-        });
-    });
-    Route::prefix('webhook')->group(static function () {
-        Route::get('/', GetWebhookLogAction::class);
-    });
-});
 
 Route::get('/{controller?}/{action?}/{any?}', function () {
     return view('vue');
