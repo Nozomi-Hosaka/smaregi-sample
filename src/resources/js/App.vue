@@ -6,7 +6,7 @@
     />
     <nav-drawer
       v-model="drawer"
-      title="title"
+      title="SmaregiApiApp"
     >
       <nav-drawer-item @click="toTop">
         TOP
