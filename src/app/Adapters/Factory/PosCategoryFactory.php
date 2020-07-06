@@ -7,6 +7,7 @@ use App\Models\SmaregiApiToken;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use Log;
+use Smaregi\Exceptions\SmaregiSpecificationException;
 use Smaregi\PosCategory\Models\Entity\PosCategory;
 use Smaregi\PosCategory\Models\Factory\PosCategoryFactoryInterface;
 
@@ -35,14 +36,23 @@ class PosCategoryFactory implements PosCategoryFactoryInterface
     }
 
     /**
+     * @param string $contractId
      * @param string $name
+     * @throws SmaregiSpecificationException
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @return PosCategory
      */
-    public function newPosCategory(string $name): PosCategory
+    public function newPosCategory(string $contractId, string $name): PosCategory
     {
         /** @var SmaregiApiToken $smaregiApiToken */
-        $smaregiApiToken = $this->smaregiApiTokenModel->newQuery()->first();
+        $smaregiApiToken = $this->smaregiApiTokenModel->newQuery()
+            ->where('contract_id', $contractId)
+            ->first();
+
+        if ($smaregiApiToken === null) {
+            throw new SmaregiSpecificationException("{$contractId} is not found");
+        }
+
         $request = new Request(
             'POST',
             config('smaregi.sandbox.pos.host') . "/{$smaregiApiToken->getAttribute('contract_id')}/pos/categories",

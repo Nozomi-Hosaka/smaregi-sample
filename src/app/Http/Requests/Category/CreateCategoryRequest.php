@@ -33,6 +33,14 @@ class CreateCategoryRequest extends FormRequest implements CreatePosCategoryInpu
     /**
      * @return string
      */
+    public function contractId(): string
+    {
+        return $this->get('contract_id', '') ?? '';
+    }
+
+    /**
+     * @return string
+     */
     public function name(): string
     {
         return $this->get('name', '') ?? '';

@@ -4,6 +4,12 @@
       <template #body>
         <div class="m-3">
           <atom-input-text
+            v-model="contractId"
+            placeholder="部門を追加したい契約IDを入力してください。"
+          />
+        </div>
+        <div class="m-3">
+          <atom-input-text
             v-model="name"
             placeholder="部門名を入力してください。"
             description="85文字以内で入力してください。"
@@ -37,13 +43,14 @@ export default {
   data() {
     return {
       createCategoryUseCase: new CreateCategory(new CategoryRepository()),
+      contractId: '',
       name: '',
     };
   },
   methods: {
     async createCategory() {
       try {
-        const input = new CreateCategoryInput(this.name);
+        const input = new CreateCategoryInput(this.contractId, this.name);
         await this.createCategoryUseCase.process(input);
       } catch (e) {
         console.error(e);

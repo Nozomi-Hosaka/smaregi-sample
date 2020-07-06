@@ -1,5 +1,6 @@
 class CreateCategoryInput {
-  constructor(name) {
+  constructor(contractId, name) {
+    this.contractId = contractId;
     this.name = name;
   }
 }

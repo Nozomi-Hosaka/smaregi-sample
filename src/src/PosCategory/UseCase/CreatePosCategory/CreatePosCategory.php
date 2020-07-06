@@ -28,7 +28,7 @@ class CreatePosCategory implements CreatePosCategoryInterface
      */
     public function process(CreatePosCategoryInputPort $inputPort, CreatePosCategoryOutputPort $outputPort): void
     {
-        $posCategory = $this->posCategoryFactory->newPosCategory($inputPort->name());
+        $posCategory = $this->posCategoryFactory->newPosCategory($inputPort->contractId(), $inputPort->name());
         $outputPort->output($posCategory);
     }
 }
