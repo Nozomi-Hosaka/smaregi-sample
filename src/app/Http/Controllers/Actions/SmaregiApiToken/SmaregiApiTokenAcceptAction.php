@@ -12,6 +12,7 @@ use Log;
 use Smaregi\Exceptions\SmaregiSpecificationException;
 use Smaregi\SmaregiApiToken\Models\Factory\SmaregiApiTokenFactoryInterface;
 use Smaregi\SmaregiApiToken\Models\Repository\SmaregiApiTokenRepositoryInterface;
+use Smaregi\SmaregiApiToken\Models\ValueObject\ContractId;
 use Smaregi\SmaregiApiToken\UseCase\SaveSmaregiApiToken\SaveSmaregiApiTokenInterface;
 use Str;
 use Throwable;
@@ -97,7 +98,7 @@ class SmaregiApiTokenAcceptAction extends Controller
      */
     private function registerContractId(Request $request): void
     {
-        $contractId = $request->get('contractId', '') ?? '';
+        $contractId = new ContractId($request->get('contractId', '') ?? '');
         $smaregiApiToken = $this->smaregiApiTokenRepository->findByContractId($contractId);
         if ($smaregiApiToken === null) {
             $smaregiApiToken = $this->smaregiApiTokenFactory->newToken($contractId, '', '');
