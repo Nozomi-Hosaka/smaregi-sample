@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Actions\SmaregiApiToken;
 
-use App\Adapters\Input\SaveSmaregiApiToken\SaveSmaregiApiTokenInput;
-use App\Adapters\Input\SaveSmaregiApiToken\SaveSmaregiApiTokenOutput;
 use App\Http\Controllers\Controller;
 use App\Models\WebhookLogs;
 use DB;
@@ -12,6 +10,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Log;
 use Smaregi\Exceptions\SmaregiSpecificationException;
+use Smaregi\SmaregiApiToken\Models\Factory\SmaregiApiTokenFactoryInterface;
+use Smaregi\SmaregiApiToken\Models\Repository\SmaregiApiTokenRepositoryInterface;
 use Smaregi\SmaregiApiToken\UseCase\SaveSmaregiApiToken\SaveSmaregiApiTokenInterface;
 use Str;
 use Throwable;
@@ -22,23 +22,40 @@ class SmaregiApiTokenAcceptAction extends Controller
      * @var WebhookLogs
      */
     private $webhookLogs;
+
     /**
      * @var SaveSmaregiApiTokenInterface
      */
     private $saveSmaregiApiTokenUseCase;
 
     /**
+     * @var SmaregiApiTokenRepositoryInterface
+     */
+    private $smaregiApiTokenRepository;
+
+    /**
+     * @var SmaregiApiTokenFactoryInterface
+     */
+    private $smaregiApiTokenFactory;
+
+    /**
      * SmaregiApiTokenAcceptAction constructor.
      *
      * @param WebhookLogs $webhookLogs
      * @param SaveSmaregiApiTokenInterface $saveSmaregiApiTokenUseCase
+     * @param SmaregiApiTokenRepositoryInterface $smaregiApiTokenRepository
+     * @param SmaregiApiTokenFactoryInterface $smaregiApiTokenFactory
      */
     public function __construct(
         WebhookLogs $webhookLogs,
-        SaveSmaregiApiTokenInterface $saveSmaregiApiTokenUseCase
+        SaveSmaregiApiTokenInterface $saveSmaregiApiTokenUseCase,
+        SmaregiApiTokenRepositoryInterface $smaregiApiTokenRepository,
+        SmaregiApiTokenFactoryInterface $smaregiApiTokenFactory
     ) {
         $this->webhookLogs = $webhookLogs;
         $this->saveSmaregiApiTokenUseCase = $saveSmaregiApiTokenUseCase;
+        $this->smaregiApiTokenRepository = $smaregiApiTokenRepository;
+        $this->smaregiApiTokenFactory = $smaregiApiTokenFactory;
     }
 
     /**
@@ -50,7 +67,6 @@ class SmaregiApiTokenAcceptAction extends Controller
      */
     public function __invoke(Request $request)
     {
-        DB::beginTransaction();
         try {
             $webhookLogs = $this->webhookLogs->newQuery()
                 ->create([
@@ -60,7 +76,12 @@ class SmaregiApiTokenAcceptAction extends Controller
                 ]);
 
             Log::info($webhookLogs->toJson());
+        } catch (Throwable $e) {
+            throw new SmaregiSpecificationException($e->getMessage(), $e->getCode(), $e);
+        }
 
+        DB::beginTransaction();
+        try {
             $this->registerContractId($request);
             DB::commit();
         } catch (Throwable $e) {
@@ -77,10 +98,11 @@ class SmaregiApiTokenAcceptAction extends Controller
     private function registerContractId(Request $request): void
     {
         $contractId = $request->get('contractId', '') ?? '';
-        $input = new SaveSmaregiApiTokenInput();
-        $input->setContractId($contractId);
-        $output = new SaveSmaregiApiTokenOutput();
-        $this->saveSmaregiApiTokenUseCase->process($input, $output);
-        logger($output->smaregiApiToken()->toArray());
+        $smaregiApiToken = $this->smaregiApiTokenRepository->findByContractId($contractId);
+        if ($smaregiApiToken === null) {
+            $smaregiApiToken = $this->smaregiApiTokenFactory->newToken($contractId, '', '');
+            $smaregiApiToken = $this->smaregiApiTokenRepository->save($smaregiApiToken);
+            logger($smaregiApiToken->toArray());
+        }
     }
 }
